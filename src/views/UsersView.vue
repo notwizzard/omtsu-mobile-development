@@ -3,11 +3,16 @@ import { ref } from 'vue'
 import { useUsersStore } from '../stores/users'
 import UserTable from '../components/UserTable.vue'
 import UserFormDialog from '../components/UserFormDialog.vue'
+import ConfirmDialog from '../components/ConfirmDialog.vue'
+import { fullName } from '../models/user'
 
 const store = useUsersStore()
 
 const dialog = ref(false)
 const editing = ref(null)
+
+const confirm = ref(false)
+const pendingDelete = ref(null)
 
 function openCreate() {
   editing.value = null
@@ -25,7 +30,14 @@ function onSave(data) {
 }
 
 function onDelete(user) {
-  store.remove(user.id)
+  pendingDelete.value = user
+  confirm.value = true
+}
+
+function confirmDelete() {
+  if (pendingDelete.value) store.remove(pendingDelete.value.id)
+  confirm.value = false
+  pendingDelete.value = null
 }
 </script>
 
@@ -46,5 +58,12 @@ function onDelete(user) {
     </v-card>
 
     <UserFormDialog v-model="dialog" :user="editing" @save="onSave" />
+
+    <ConfirmDialog
+      v-model="confirm"
+      title="Удалить пользователя?"
+      :message="pendingDelete ? `Пользователь «${fullName(pendingDelete)}» будет удалён безвозвратно.` : ''"
+      @confirm="confirmDelete"
+    />
   </v-container>
 </template>
