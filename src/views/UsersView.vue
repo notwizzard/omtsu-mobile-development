@@ -54,6 +54,18 @@ function confirmDelete() {
     </div>
 
     <v-card border flat>
+      <div class="pa-4">
+        <v-text-field
+          :model-value="store.search"
+          prepend-inner-icon="mdi-magnify"
+          placeholder="Поиск по имени…"
+          hide-details
+          clearable
+          density="comfortable"
+          @update:model-value="store.setSearch($event ?? '')"
+        />
+      </div>
+      <v-divider />
       <UserTable :users="store.filtered" @edit="onEdit" @delete="onDelete" />
     </v-card>
 
