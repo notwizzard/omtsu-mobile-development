@@ -1,7 +1,16 @@
 <script setup>
 import { useUsersStore } from '../stores/users'
+import UserTable from '../components/UserTable.vue'
 
 const store = useUsersStore()
+
+function onEdit(user) {
+  console.log('edit', user)
+}
+
+function onDelete(user) {
+  store.remove(user.id)
+}
 </script>
 
 <template>
@@ -12,5 +21,9 @@ const store = useUsersStore()
         <p class="text-medium-emphasis mb-0">Всего: {{ store.total }}</p>
       </div>
     </div>
+
+    <v-card border flat>
+      <UserTable :users="store.filtered" @edit="onEdit" @delete="onDelete" />
+    </v-card>
   </v-container>
 </template>
