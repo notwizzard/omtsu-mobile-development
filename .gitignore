@@ -1,0 +1,7 @@
+node_modules
+.claude
+dist
+dist-zip
+*.local
+.DS_Store
+Testovoe_Front_11_04_2023.pdf
