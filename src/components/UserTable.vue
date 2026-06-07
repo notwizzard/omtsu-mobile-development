@@ -62,6 +62,13 @@ function formatDate(iso) {
       {{ item.city || '—' }}
     </template>
 
+    <template #no-data>
+      <div class="text-center py-12 text-medium-emphasis">
+        <v-icon icon="mdi-account-off-outline" size="48" class="mb-2" />
+        <div>Пользователи не найдены</div>
+      </div>
+    </template>
+
     <template #item.actions="{ item }">
       <v-btn
         icon="mdi-pencil"
