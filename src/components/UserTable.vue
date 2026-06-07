@@ -70,20 +70,22 @@ function formatDate(iso) {
     </template>
 
     <template #item.actions="{ item }">
-      <v-btn
-        icon="mdi-pencil"
-        variant="text"
-        size="small"
-        color="primary"
-        @click="emit('edit', item)"
-      />
-      <v-btn
-        icon="mdi-delete-outline"
-        variant="text"
-        size="small"
-        color="error"
-        @click="emit('delete', item)"
-      />
+      <div class="d-flex justify-end flex-nowrap">
+        <v-btn
+          icon="mdi-pencil"
+          variant="text"
+          size="small"
+          color="primary"
+          @click="emit('edit', item)"
+        />
+        <v-btn
+          icon="mdi-delete-outline"
+          variant="text"
+          size="small"
+          color="error"
+          @click="emit('delete', item)"
+        />
+      </div>
     </template>
   </v-data-table>
 </template>
