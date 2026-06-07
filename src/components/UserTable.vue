@@ -12,7 +12,7 @@ const headers = [
   { title: 'Дата рождения', key: 'birthDate' },
   { title: 'Возраст', key: 'age', align: 'center' },
   { title: 'Город', key: 'city' },
-  { title: '', key: 'actions', sortable: false, align: 'end' },
+  { title: '', key: 'actions', sortable: false, align: 'end', width: 104 },
 ]
 
 function initials(user) {
