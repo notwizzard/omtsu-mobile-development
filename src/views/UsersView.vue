@@ -14,6 +14,14 @@ const editing = ref(null)
 const confirm = ref(false)
 const pendingDelete = ref(null)
 
+const snackbar = ref(false)
+const snackText = ref('')
+
+function notify(text) {
+  snackText.value = text
+  snackbar.value = true
+}
+
 function openCreate() {
   editing.value = null
   dialog.value = true
@@ -25,8 +33,13 @@ function onEdit(user) {
 }
 
 function onSave(data) {
-  if (editing.value) store.update(editing.value.id, data)
-  else store.add(data)
+  if (editing.value) {
+    store.update(editing.value.id, data)
+    notify('Пользователь обновлён')
+  } else {
+    store.add(data)
+    notify('Пользователь создан')
+  }
 }
 
 function onDelete(user) {
@@ -35,7 +48,10 @@ function onDelete(user) {
 }
 
 function confirmDelete() {
-  if (pendingDelete.value) store.remove(pendingDelete.value.id)
+  if (pendingDelete.value) {
+    store.remove(pendingDelete.value.id)
+    notify('Пользователь удалён')
+  }
   confirm.value = false
   pendingDelete.value = null
 }
@@ -77,5 +93,9 @@ function confirmDelete() {
       :message="pendingDelete ? `Пользователь «${fullName(pendingDelete)}» будет удалён безвозвратно.` : ''"
       @confirm="confirmDelete"
     />
+
+    <v-snackbar v-model="snackbar" :timeout="2500" color="primary" location="bottom right">
+      {{ snackText }}
+    </v-snackbar>
   </v-container>
 </template>
