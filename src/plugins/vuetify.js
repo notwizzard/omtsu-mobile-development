@@ -1,6 +1,7 @@
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 import { createVuetify } from 'vuetify'
+import { ru } from 'vuetify/locale'
 
 const light = {
   dark: false,
@@ -17,6 +18,10 @@ const light = {
 }
 
 export default createVuetify({
+  locale: {
+    locale: 'ru',
+    messages: { ru },
+  },
   theme: {
     defaultTheme: 'light',
     themes: { light },
